@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hypersafe/pages/dashboard.dart';
 import 'package:hypersafe/pages/login.dart';
+import 'package:hypersafe/pages/notification.dart';
 
 void main() {
+  
   runApp(MyApp());
 }
 
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LoginPage(),
+      home: LoginPage()
     );
   }
 }

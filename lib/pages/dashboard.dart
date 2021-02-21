@@ -5,6 +5,8 @@ import 'package:hypersafe/providers/medicionesProvider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 import 'package:flutter_email_sender/flutter_email_sender.dart';
+
+import 'notification.dart';
 class Dashboard extends StatefulWidget {
   @override
   _DashboardState createState() => _DashboardState();
@@ -49,7 +51,11 @@ class _DashboardState extends State<Dashboard> {
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: InkWell(
-          child: Icon(Icons.settings)
+          onTap: (){
+            Navigator.push(
+            context, MaterialPageRoute(builder: (context) => NotificationApp())); 
+          },
+          child: Icon(Icons.notification_important)
         ),
       )
       ]),
@@ -202,6 +208,13 @@ class _DashboardState extends State<Dashboard> {
                 child: Text('Añadir'),
                 textColor: Colors.blue,
                 onPressed: () async {
+                  var sis = int.parse(sistolica.text);
+                  var dia = int.parse(diastolica.text);
+
+                  if(dia <=  0 || dia >=300 || sis <=  0 || sis >=300){
+                    Alert(message: "diferente a 0 y menor que 300").show();
+                    return;
+                  }
                   bool res = await addMediciones(sistolica.text,diastolica.text,pulso.text,arritmia.text);
                   if(res) {Alert(message: 'Registro Añadido').show();Navigator.pop(context);}
                   /*if (titulo.text != "" && contenido.text != "") {
